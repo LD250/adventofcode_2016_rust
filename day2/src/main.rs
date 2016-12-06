@@ -16,9 +16,9 @@ fn get_button_coords(start_on: &(u8, u8), steps: &str) -> (u8, u8) {
     for direction in steps.chars() {
         match direction {
             'U' if y > 0 => y -= 1,
-            'D' if y < 3 => y += 1,
+            'D' if y < 2 => y += 1,
             'L' if x > 0 => x -= 1,
-            'R' if x < 3 => x += 1,
+            'R' if x < 2 => x += 1,
             _ => {},
         }
     }
@@ -35,11 +35,22 @@ fn main() {
     let start_from: (u8, u8) = (1, 1);
 
     for steps in s.trim().lines() {
-        println!("{:?}", steps);
         let start_from = get_button_coords(&start_from, steps);
-        buttons_list.push(BUTTONS[start_from.0 as usize][start_from.1 as usize]);
+        buttons_list.push(BUTTONS[start_from.1 as usize][start_from.0 as usize]);
     }
 
-    println!("Coords: {:?}", buttons_list);
+    println!("Buttons: {:?}", buttons_list);
+
+}
+
+
+#[test]
+fn test_get_button_coords() {
+    let start: (u8, u8) = (1, 1);
+    assert_eq!(get_button_coords(&start, "ULL"), (0, 0)); // 1
+    assert_eq!(get_button_coords(&(0, 0), "RRDDD"), (2, 2)); // 9
+    assert_eq!(get_button_coords(&(2, 2), "LURDL"), (1, 2)); // 8
+    assert_eq!(get_button_coords(&(1, 2), "UUUUD"), (1, 1)); // 5
+
 
 }
