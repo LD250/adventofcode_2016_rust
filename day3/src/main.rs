@@ -23,18 +23,32 @@ fn main() {
                                })
                                .filter(|&r| r == true)
                                .count();
-    println!("{}", not_triangles_count);
+    println!("Part 1: {}", not_triangles_count);
+    let mut break_occurs: u8 = 0;
+    let not_triangles_count: u16 = s.trim()
+                               .split(|c: char| if c != '\n' { false }
+                                                else if break_occurs == 2 {break_occurs = 0; true} 
+                                                else {break_occurs += 1; false})
+                               .map(|three_lines| {
+                                    let vecs: Vec<Vec<u16>> = three_lines.lines()
+                                                                         .map(|line| line.split_whitespace()
+                                                                                         .map(|l| l.parse()
+                                                                                                   .unwrap())
+                                                                                         .collect::<Vec<u16>>())
+                                                                         .collect();
+                                    let mut good_count: u16 = 0;
+                                    for x in 0..3 {
+                                        let mut l: Vec<u16> = (0..3).map(|y| vecs[y][x]).collect();
+                                        l.sort();
+                                        if l[0] + l[1] > l[2] {
+                                            good_count += 1;
+                                        };
+                                        
+                                    };
+                                    good_count
+                               })
+                               .sum();
+    println!("Part 2: {}", not_triangles_count);
 
 }
 
-
-#[test]
-fn test_get_button_coords() {
-    let start: (u8, u8) = (1, 1);
-    assert_eq!(get_button_coords(&start, "ULL"), (0, 0)); // 1
-    assert_eq!(get_button_coords(&(0, 0), "RRDDD"), (2, 2)); // 9
-    assert_eq!(get_button_coords(&(2, 2), "LURDL"), (1, 2)); // 8
-    assert_eq!(get_button_coords(&(1, 2), "UUUUD"), (1, 1)); // 5
-
-
-}
