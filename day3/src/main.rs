@@ -2,12 +2,6 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
 
-//fn is_triangle(sides: [u16, u16, u16]) -> bool {
-//    sides.sort();
-//
-//
-//
-//}
 
 fn main() {
     let path = Path::new("data/input.txt");
