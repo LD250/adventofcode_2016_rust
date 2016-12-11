@@ -4,3 +4,5 @@ version = "0.1.0"
 authors = ["Denys Levchenko <denis.levtchenko@gmail.com>"]
 
 [dependencies]
+seahash = "=3.0.4"
+num = "0.1"
