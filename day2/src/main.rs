@@ -5,9 +5,7 @@ use std::path::Path;
 type ButtonLine = (u8, u8, u8);
 
 
-const BUTTONS: [[char; 3]; 3] = [['1', '2', '3'],
-                                 ['4', '5', '6'],
-                                 ['7', '8', '9']];
+const BUTTONS: [[char; 3]; 3] = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']];
 
 const EXTENDED_BUTTONS: [[char; 5]; 5] = [['0', '0', '1', '0', '0'],
                                           ['0', '2', '3', '4', '0'],
@@ -24,7 +22,7 @@ fn get_button_coords(start_on: &(usize, usize), steps: &str) -> (usize, usize) {
             'D' if y < 2 => y += 1,
             'L' if x > 0 => x -= 1,
             'R' if x < 2 => x += 1,
-            _ => {},
+            _ => {}
         }
     }
     (x, y)
@@ -40,7 +38,7 @@ fn get_extended_button_coords(start_on: &(usize, usize), steps: &str) -> (usize,
             'D' if y < 4 && EXTENDED_BUTTONS[y + 1][x] != '0' => y += 1,
             'L' if x > 0 && EXTENDED_BUTTONS[y][x - 1] != '0' => x -= 1,
             'R' if x < 4 && EXTENDED_BUTTONS[y][x + 1] != '0' => x += 1,
-            _ => {},
+            _ => {}
         }
     }
     (x, y)

@@ -38,14 +38,26 @@ fn find_location(steps: &Vec<Vec<&str>>) -> (i16, i16, i16, i16) {
         let x_prev = x;
         let y_prev = y;
         match (face, step[0]) {
-            ("S", "L") | ("N", "R") => {x += step_int; face = "W"},
+            ("S", "L") | ("N", "R") => {
+                x += step_int;
+                face = "W"
+            }
 
-            ("W", "L") | ("E", "R") => {y += step_int; face = "N"},
+            ("W", "L") | ("E", "R") => {
+                y += step_int;
+                face = "N"
+            }
 
-            ("S", "R") | ("N", "L") => {x -= step_int; face = "E"},
+            ("S", "R") | ("N", "L") => {
+                x -= step_int;
+                face = "E"
+            }
 
-            ("E", "L") | ("W", "R") => {y -= step_int; face = "S"},
-            _ => {},
+            ("E", "L") | ("W", "R") => {
+                y -= step_int;
+                face = "S"
+            }
+            _ => {}
         };
         for xi in simple_range!(x_prev, x) {
             for yi in simple_range!(y_prev, y) {
@@ -55,7 +67,7 @@ fn find_location(steps: &Vec<Vec<&str>>) -> (i16, i16, i16, i16) {
             }
         }
 
-    };
+    }
     (x.abs(), y.abs(), seen_twice.0, seen_twice.1)
 
 }
@@ -66,9 +78,9 @@ fn main() {
     let mut s = String::new();
 
     file.read_to_string(&mut s).unwrap();
-    let steps: Vec<Vec<&str>> = s.split(',').map(|r| {
-        r.trim().splitn(3, "").filter(|&s| s != "").collect()
-    }).collect();
+    let steps: Vec<Vec<&str>> = s.split(',')
+        .map(|r| r.trim().splitn(3, "").filter(|&s| s != "").collect())
+        .collect();
     let (x, y, x2, y2) = find_location(&steps);
     println!("Answer 1: {} + {} = {}", x, y, x + y);
     println!("Answer 2: {} + {} = {}", x2, y2, x2 + y2);
